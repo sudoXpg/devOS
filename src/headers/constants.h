@@ -1,0 +1,14 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+#define VIDEO_MEMORY_START 0xB8000
+
+#define VGA_HEIGHT 20
+#define VGA_WIDTH 80
+
+#define TOTAL_INTS 512
+
+#define CODE_SELECTOR 0x08
+#define DATA_SELECTOR 0x10
+
+#endif

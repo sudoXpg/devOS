@@ -7,6 +7,7 @@
 #include "../headers/constants.h"
 #include "../memory/memory.h"
 #include "../display/display.h"
+#include "../io/io.h"
 
 
 // offset is the entry point of the ISR
@@ -26,5 +27,11 @@ struct idtr{
 
 void idt_init();
 void set_idt(int int_num, void *address);
+
+extern void int21h();
+extern void no_int();
+
+void int21h_handler();
+void no_int_handler();
 
 #endif

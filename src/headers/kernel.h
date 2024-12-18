@@ -6,6 +6,7 @@
 #include "../string/string.h"
 #include "../display/display.h"
 #include "../idt/idt.h"
+#include "../io/io.h"
 
 #include<stdint.h>
 

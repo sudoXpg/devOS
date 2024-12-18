@@ -1,6 +1,5 @@
 #include "headers/kernel.h"
 
-extern void problem();
 
 void kernel_start(){
 
@@ -8,5 +7,5 @@ void kernel_start(){
     idt_init();
 
     print("hello world!\ndevOS\n");
-    problem();
+    outb(0x80,0x11);
 }

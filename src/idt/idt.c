@@ -6,6 +6,15 @@ struct idtr idtr_descriptor;
 
 extern void idt_load(struct idtr *ptr);
 
+void int21h_handler(){
+    print("\nKeyboard pressed\n");
+    outb(0x20,0x20);
+}
+
+
+void no_int_handler(){
+    outb(0x20,0x20);
+}
 
 
 void idt_zero(){
@@ -29,8 +38,13 @@ void idt_init(){
     idtr_descriptor.limit=sizeof(idt_table)-1;
     idtr_descriptor.base=(uint32_t)idt_table;
     
+    for(int i=0;i<TOTAL_INTS;i++){
+        set_idt(i,no_int);
+    }
+
     // set the interrupt
-    set_idt(32,idt_zero);
+    set_idt(0,idt_zero);
+    set_idt(0x21,int21h);
     
     // load the interrupt using ASM
     idt_load(&idtr_descriptor);

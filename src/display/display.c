@@ -14,10 +14,6 @@ void putchar(int x, int y, char c, char color){
 
 void writechar(char c){
     if(c =='\n'){   
-        while(screen_col<VGA_WIDTH){
-            putchar(screen_col,screen_row,' ',BLACK);
-            screen_col++;
-        }
         screen_col=0;
         screen_row++;
         return;

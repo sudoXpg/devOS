@@ -7,5 +7,6 @@ void kernel_start(){
     idt_init();
 
     print("hello world!\ndevOS\n");
-    outb(0x80,0x11);
+    kheap_init();
+    
 }

@@ -21,5 +21,7 @@ struct paging_4gb{
 void paging_switch(uint32_t *directory);
 struct paging_4gb *paging_new_4gb(uint8_t flags);
 void enable_paging();
+int paging_set(uint32_t *directory, void *virtaddr, uint32_t val);
+int paging_is_aligned(void *address);
 
 #endif

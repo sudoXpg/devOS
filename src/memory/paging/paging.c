@@ -29,3 +29,29 @@ void paging_switch(uint32_t *directory){
 int paging_is_aligned(void *address){
     return ((uint32_t) address % PAGING_PAGE_SIZE) ==0;
 }
+
+int paging_get_indexes(void *virtual_address, uint32_t *directory_index_out, uint32_t *table_index_out){    // finds which dir and page entries are used
+    int ret=0;
+    if(!paging_is_aligned(virtual_address)){        // checks if is a valid page address
+        ret = ERROR_INVALID_ARG;
+    }
+    
+    *directory_index_out = ((uint32_t)virtual_address/(PAGING_ENTRIES_PER_TABLE * PAGING_PAGE_SIZE));
+    *table_index_out = ((uint32_t) virtual_address % (PAGING_ENTRIES_PER_TABLE * PAGING_PAGE_SIZE) / PAGING_PAGE_SIZE);
+    return ret;
+}
+
+int paging_set(uint32_t *directory, void *virtaddr, uint32_t val){
+    if(!paging_is_aligned(virtaddr)){
+        return ERROR_INVALID_ARG;
+    }
+    uint32_t directory_index=0;
+    uint32_t table_index=0;
+    if(paging_get_indexes(virtaddr, &directory_index, &table_index)<0){
+        return ERROR_INVALID_ARG;
+    }
+    uint32_t page_dir_entry = directory[directory_index];
+    uint32_t *page_table = ((uint32_t*) (page_dir_entry & 0xfffff000));     //only get first 20 bits
+    page_table[table_index] = val;
+    return 0;
+}

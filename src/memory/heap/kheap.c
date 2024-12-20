@@ -23,3 +23,12 @@ void kfree(void *ptr){
     heap_free(&kernel_heap, ptr);
     return;
 }
+
+void *kzalloc(size_t size){
+    void *ptr = kmalloc(size);
+    if(!ptr){
+        return 0;
+    }
+    memset(ptr,0,size);
+    return ptr;
+}

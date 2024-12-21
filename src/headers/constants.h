@@ -18,5 +18,8 @@
 #define HEAP_START_ADDRESS 0x01000000	            // from memory map https://wiki.osdev.org/Memory_Map_(x86)#:~:text=15%2D16MB%203-,0x01000000,-%3F%3F%3F%3F%3F%3F%3F%3F
 #define HEAP_TABLE_START_ADDRESS 0x00007E00         // https://wiki.osdev.org/Memory_Map_(x86)#:~:text=Your%20OS%20BootSector-,0x00007E00,-0x0007FFFF
 
+#define SECTOR_SIZE 512                             // default sector size of hdd
+
+#define MAX_FILE_PATH 100
 
 #endif

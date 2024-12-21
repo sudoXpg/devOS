@@ -16,5 +16,6 @@ void putchar(int x, int y, char c, char color);
 void writechar(char c);
 void write(const char* str, size_t len);
 void print(const char *str);
+void cls(char color);
 
 #endif

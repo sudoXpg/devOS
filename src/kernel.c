@@ -8,7 +8,8 @@ void kernel_start(){
     
     idt_init();
     
-    print("hello world!\ndevOS\n");
+    start();
+    //print("hello world!\ndevOS\n");
     
     kheap_init();
 
@@ -16,8 +17,11 @@ void kernel_start(){
     paging_switch(kernel_paging->directory_entry);  // switch to kernel paging chunk
     enable_paging();
 
-    char buff[512];
-    disk_read_sector(0,1,buff);
+    disk_lookup_init();
+    
+
+    
+
 
     __asm__("sti;");// enable interrupts after idt loaded
 

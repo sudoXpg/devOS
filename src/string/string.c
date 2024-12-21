@@ -7,3 +7,15 @@ size_t strlen(const char *string){
     }
     return length;
 }
+
+int isdigit(char c){
+    if(c>=48 && c<=57){         // from ascii table
+        return 1;
+    }
+    return 0;
+}
+
+
+int todigit(char c){
+    return c - 48;              // from ascii table
+}

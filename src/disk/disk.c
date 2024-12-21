@@ -1,5 +1,7 @@
 #include "disk.h"
 
+struct disk disk;       // primary hdd
+
 int disk_read_sector(int lba, int total_blocks, void *buffer){                  //https://wiki.osdev.org/ATA_PIO_Mode#:~:text=write%20command%20completes.-,48%20bit%20PIO,-Reading%20sectors%20using
 
     outb(0x1F6, (lba >> 24) | 0xE0);                                            // Send the high 4 bits of the LBA (Logical Block Address) and set the drive selection bit (0xE0 for master drive).
@@ -23,4 +25,27 @@ int disk_read_sector(int lba, int total_blocks, void *buffer){                  
 
 
     return 0;
+}
+
+
+// TODO -- implement later 
+void disk_lookup_init(){
+    memset(&disk, 0, sizeof(disk));
+    disk.disk_type = DISK_TYPE_REAL;
+    disk.sector_size = SECTOR_SIZE;
+}
+
+struct disk* disk_get(int index){
+    if(index!=0){
+        return 0;
+    }
+    return &disk;
+}
+
+int disk_read_block(struct disk* diskin, int lba, int total_blocks, void *buffer){
+    if(diskin!=&disk){
+        return ERROR_DISK_ERROR;
+    }
+    return disk_read_sector(lba,total_blocks,buffer);
+
 }

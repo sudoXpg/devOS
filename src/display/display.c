@@ -38,7 +38,13 @@ void terminal_init(){
     }
 }   
 
-
+void cls(char color){
+    for(int y=0;y<VGA_HEIGHT;y++){
+        for(int x=0;x<VGA_WIDTH;x++){
+            putchar(x,y,' ',color);
+        }
+    }
+}
 
 void write(const char* str, size_t len){
     for(int i=0;i<len;i++){

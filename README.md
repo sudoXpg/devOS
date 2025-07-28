@@ -13,47 +13,6 @@ The kernel entry point is `kernel_start()` defined in `main.c`, which performs t
 - Initializes disk lookup routines
 - Enables hardware interrupts
 
-```c
-#include "headers/kernel.h"
-
-static struct paging_4gb *kernel_paging = 0;
-
-void kernel_start() {
-    terminal_init();
-    idt_init();
-    start();  // Additional early setup
-    kheap_init();
-
-    kernel_paging = paging_new_4gb(
-        PAGING_IS_WRITEABLE | PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL
-    );
-    paging_switch(kernel_paging->directory_entry);
-    enable_paging();
-
-    disk_lookup_init();
-    __asm__("sti;");
-}
-````
-
-## Directory Structure
-
-```
-devOS/
-├── headers/               # Header files
-│   └── kernel.h
-├── kernel/
-│   └── main.c             # Kernel entry point
-├── memory/
-│   ├── paging.c
-│   └── kheap.c
-├── interrupts/
-│   └── idt.c
-├── drivers/
-│   └── disk.c
-├── boot/
-│   └── bootloader.asm     # Optional bootloader code
-```
-
 ## Build Requirements
 
 * GCC cross-compiler for i386
@@ -61,15 +20,12 @@ devOS/
 * QEMU or Bochs for emulation
 * Make
 
-## Building and Running
+## Building
 
 ```bash
 make clean
 make all
-qemu-system-i386 -hda ./bin/os.bin
 ```
-
-This assumes a valid `Makefile` and that `os.bin` is a bootable binary image.
 
 ## Development Status
 
